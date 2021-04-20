@@ -5,10 +5,10 @@
 <title>Producto</title>
 </head>
 <body>
-<h1>Formulario de Carga de Producto</h1>
-<form id="formProducto" th:object="${unProducto}" th:action="${poductoo}" method="post">
+<h1>Formulario que muestra el Último Producto</h1>
+	<form id="formUltimoProducto" th:object="${ultimoProducto}">
 		
-		<label for="codigo">Codigo</label> 
+			<label for="codigo">Codigo</label> 
 			<input type="text"	id="codigo" th:field="*{codProducto}">
 		<br>
 		
@@ -28,10 +28,8 @@
 			<input type="number" id="stock" th:field="*{stock}">
 		<br>
 
-		<div>
-			<button type="submit" value="Agregar">Agregar</button>
-		</div>
-
-</form>
+	</form>
+	<br>
+	<a href="volver">Volver a cargar otro producto</a>
 </body>
 </html>

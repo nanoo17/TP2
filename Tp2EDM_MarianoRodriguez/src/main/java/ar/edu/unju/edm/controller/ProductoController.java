@@ -1,5 +1,7 @@
 package ar.edu.unju.edm.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,7 @@ import ar.edu.unju.edm.service.ProductoService;
 @Controller
 
 public class ProductoController {
-	
+	public static final Log NANO = LogFactory.getLog(ProductoController.class);
 	@Autowired
 	ProductoService iProductoService;
 
@@ -22,10 +24,24 @@ public class ProductoController {
 	model.addAttribute("unProducto", iProductoService.obtenerProductoNuevo());
 	return ("productoo");
 }
-@PostMapping("/nuevoProducto")
+ 
+@PostMapping("/productoo")
 public String cargarNuevoProducto(@ModelAttribute("unProducto") Producto nuevoProducto, Model model ) {
 	iProductoService.guardarProducto(nuevoProducto);
-	return ("productoo");
+	System.out.println(iProductoService.obtenerTodoProductos().get(0).getMarca());
+	model.addAttribute("productos", iProductoService.obtenerTodoProductos());
+	NANO.info("se guardo correctamente");
+	return ("resultado");
 	
+}
+
+@GetMapping("/volver")
+public String cargarnuevoProducto(Model model) {
+	return ("redirect:/productoo");
+}
+@GetMapping("/ultimo")
+public String cargarUltimoProducto(Model model) {
+	model.addAttribute("ultimoProducto", iProductoService.obtenerUltimoProducto());
+	return("mostrar-ultimo");
 }
 }

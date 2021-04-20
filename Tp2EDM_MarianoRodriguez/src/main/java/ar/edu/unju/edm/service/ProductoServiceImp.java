@@ -2,6 +2,8 @@ package ar.edu.unju.edm.service;
 
 import java.util.ArrayList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ import ar.edu.unju.edm.model.Producto;
 //o tambien en Oracle...
 	@Service
 public class ProductoServiceImp implements ProductoService {
-
+private static final Log LOGGER = LogFactory.getLog(ProductoServiceImp.class);
 	@Autowired
 	Producto unProducto;
 	
@@ -21,15 +23,12 @@ public class ProductoServiceImp implements ProductoService {
 	@Override
 	public void guardarProducto(Producto unProducto) {
 		// TODO Auto-generated method stub
-		//esta línea la puse solo para que escriba en la consola el nombre del producto que llega
-		//una línea que me sirve a mí de control
-		//un log artesanal
 		System.out.println(unProducto.getNombre());
 		listaDeProductos.add(unProducto);
-		
-		//otra línea de control
-		//quiero saber cuántos elementos hay en el arreglo
 		System.out.println(listaDeProductos.size());
+		
+		LOGGER.info("METHOD: ingresando a Guardar Producto");
+		LOGGER.info("RESULT: guardado " + listaDeProductos.get(listaDeProductos.size()-1).getNombre());
 	}
 
 	@Override
@@ -53,7 +52,7 @@ public class ProductoServiceImp implements ProductoService {
 	@Override
 	public ArrayList<Producto> obtenerTodoProductos() {
 		// TODO Auto-generated method stub
-		return null;
+		return listaDeProductos;
 	}
 
 	@Override
@@ -66,7 +65,8 @@ public class ProductoServiceImp implements ProductoService {
 	@Override
 	public Producto obtenerUltimoProducto() {
 		// TODO Auto-generated method stub
-		return null;
+		int i = listaDeProductos.size() -1;
+		return listaDeProductos.get(i);
 	}
 
 }
